@@ -2,6 +2,7 @@
 using FirstFiorellaMVC.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using System;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -17,9 +18,11 @@ namespace FirstFiorellaMVC.Areas.AdminPanel.Controllers
             _dbContext = dbContext;
         }
 
-        public async Task<ActionResult> Index()
+        public async Task<ActionResult> Index(int page = 1)
         {
-            var blogs = await _dbContext.Blogs.ToListAsync();
+            ViewBag.BlogCounts = await _dbContext.Blogs.CountAsync();
+
+            var blogs = await _dbContext.Blogs.Skip((page - 1) * 4).Take(4).ToListAsync();
 
             return View(blogs);
         }
