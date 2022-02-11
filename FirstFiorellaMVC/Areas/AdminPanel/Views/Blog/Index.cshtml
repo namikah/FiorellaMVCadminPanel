@@ -1,6 +1,5 @@
 ﻿@{
-    ViewData["title"] = "blog";
-    Layout = "~/areas/adminpanel/views/shared/_adminlayout.cshtml";
+    ViewData["Title"] = "Blog";
     List<Blog> blogList = Model;
     var maxPageCounts = Math.Ceiling((decimal)ViewBag.BlogCounts / 4);
     var currentPage = ViewBag.CurrentPage;
@@ -11,23 +10,29 @@
         <div class="table-responsive pt-3">
             <table class="table table-bordered">
                 <thead>
-                    <tr class="table-primary">
+                    <tr class="table-primary text-center">
                         <th>#</th>
                         <th>Image</th>
                         <th>Name</th>
                         <th>Context</th>
                         <th>Date</th>
+                        <th>Operation</th>
                     </tr>
                 </thead>
                 <tbody>
                     @foreach (var item in blogList)
                     {
-                        <tr class="table-info">
+                        <tr class="table-info text-center">
                             <td>@item.Id</td>
                             <td><img class="img-fluid" src="~/img/@item.Image" /></td>
                             <td><a style="text-decoration:none" asp-controller="Blog" asp-action="Detail" asp-route-id="@item.Id">@item.Name</a></td>
                             <td>@item.Context</td>
                             <td>@item.Datetime.ToShortDateString()</td>
+                            <td style="color:whitesmoke;">
+                                <a asp-controller="Blog" asp-action="Detail" asp-route-id="@item.Id" class="btn btn-primary btn-rounded btn-fw">Detail</a>
+                                <a class="btn btn-success btn-rounded btn-fw" asp-action="Edit" asp-route-id="@item.Id">Edit</a>
+                                <a class="btn btn-danger btn-rounded btn-fw">Delete</a>
+                            </td>
                         </tr>
                     }
                 </tbody>
@@ -39,27 +44,27 @@
             <ul class="pagination">
                 <li class="page-item">
                     @{
-                        if(currentPage > 1)
+                        if (currentPage > 1)
                         {
                             <a class="page-link" asp-action="Index" asp-route-page="@(ViewBag.CurrentPage-1)">Previous</a>
                         }
                         else
                         {
-                             <a class="page-link" asp-action="Index" style="pointer-events:none">Previous</a>
+                            <a class="page-link" asp-action="Index" style="pointer-events:none">Previous</a>
                         }
                     }
                 </li>
                 @{
-                   
+
 
                     for (var i = 1; i <= maxPageCounts; i++)
                     {
-                        <li class="page-@i"><a class="page-link" asp-action="Index" asp-route-page="@i">@i</a></li>
+                        <li class="page-@i"><a class="page-link" asp-action="Index" asp-route-page="@i" style="@((currentPage == i)? "background-color:blue; color:white;" : "")">@i</a></li>
                     }
                 }
                 <li class="page-item">
                     @{
-                        if(currentPage < maxPageCounts)
+                        if (currentPage < maxPageCounts)
                         {
                             <a class="page-link" asp-action="Index" asp-route-page="@(currentPage + 1)">Next</a>
                         }

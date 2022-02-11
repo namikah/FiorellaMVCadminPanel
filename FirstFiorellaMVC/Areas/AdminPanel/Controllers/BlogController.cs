@@ -54,7 +54,7 @@ namespace FirstFiorellaMVC.Areas.AdminPanel.Controllers
                 return View();
             }
 
-            var isBlog = await _dbContext.Categories.AnyAsync(x => x.Name.ToLower() == blog.Name.ToLower());
+            var isBlog = await _dbContext.Blogs.AnyAsync(x => x.Name.ToLower() == blog.Name.ToLower());
             if (isBlog)
             {
                 ModelState.AddModelError("Name", "Already exist this blog");
@@ -62,6 +62,48 @@ namespace FirstFiorellaMVC.Areas.AdminPanel.Controllers
             }
 
             await _dbContext.Blogs.AddAsync(blog);
+            await _dbContext.SaveChangesAsync();
+
+            return RedirectToAction(nameof(Index));
+        }
+
+        public async Task<IActionResult> Edit(int id)
+        {
+            var blog = await _dbContext.Blogs.FindAsync(id);
+            if (blog == null)
+                return NotFound();
+
+            return View(blog);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Edit(Blog blog)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View();
+            }
+
+            var isExistBlog = await _dbContext.Blogs.FindAsync(blog.Id);
+            if (isExistBlog == null)
+            {
+                ModelState.AddModelError("Name", "Note found");
+                return View(isExistBlog);
+            }
+
+            var isExistBlogName = await _dbContext.Blogs.AnyAsync(x => x.Name == blog.Name);
+            if (isExistBlogName)
+            {
+                ModelState.AddModelError("Name", "Already exist this blog");
+                return View(isExistBlog);
+            }
+            isExistBlog.Name = blog.Name;
+            isExistBlog.Description = blog.Description;
+            isExistBlog.Datetime = blog.Datetime;
+            isExistBlog.Context = blog.Context;
+            isExistBlog.Image = blog.Image;
+
             await _dbContext.SaveChangesAsync();
 
             return RedirectToAction(nameof(Index));

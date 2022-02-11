@@ -1,33 +1,33 @@
 ﻿@model Blog
 @{
-    ViewData["Title"] = "Create";
+    ViewData["Title"] = "Edit";
 }
 <div class="container">
     <div class="row justify-content-center mt-5">
         <div class="col-md-8 grid-margin stretch-card">
             <div class="card">
                 <div class="card-body">
-                    <h4 class="card-title">Add Blog</h4>
-                    <p class="card-description">Please fill below</p>
+                    <h4 class="card-title">Edit Blog</h4>
+                    <p class="card-description">Please change</p>
                     <form class="forms-sample" method="post"> @*!!!*@
                         <div class="form-group">
-                            <input class="form-control" id="exampleInputUsername1" placeholder="name" asp-for="Name">
+                            <input class="form-control" id="exampleInputUsername1" placeholder="name" asp-for="Name" value="@Model.Name">
                             <span asp-validation-for="Name" class="text-danger"></span>
                         </div>
                          <div class="form-group">
-                            <input class="form-control" id="exampleInputUsername1" placeholder="image name (ex: image1.jpg)" asp-for="Image">
+                            <input class="form-control" id="exampleInputUsername1" placeholder="image name (ex: image1.jpg)" asp-for="Image" value="@Model.Image">
                             <span asp-validation-for="Image" class="text-danger"></span>
                         </div>
                          <div class="form-group">
-                            <input class="form-control" id="exampleInputUsername1" placeholder="context" asp-for="Context">
+                            <input class="form-control" id="exampleInputUsername1" placeholder="context" asp-for="Context" value="@Model.Context">
                             <span asp-validation-for="Context" class="text-danger"></span>
                         </div>
                            <div class="form-group">
-                            <input class="form-control" id="exampleInputUsername1" placeholder="description" asp-for="Description">
+                            <input class="form-control" id="exampleInputUsername1" placeholder="description" asp-for="Description" value="@Model.Description">
                             <span asp-validation-for="Description" class="text-danger"></span>
                         </div>
                           <div class="form-group">
-                            <input class="form-control" id="exampleInputUsername1" placeholder="date" asp-for="Datetime">
+                            <input class="form-control" id="exampleInputUsername1" placeholder="date" asp-for="Datetime" value="@Model.Datetime.ToLongTimeString()">
                             <span asp-validation-for="Datetime" class="text-danger"></span>
                         </div>
                         <button type="submit" class="btn btn-primary me-2">Submit</button>
