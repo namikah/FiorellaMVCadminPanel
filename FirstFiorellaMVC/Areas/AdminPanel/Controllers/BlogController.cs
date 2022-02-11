@@ -1,4 +1,5 @@
 ﻿using FirstFiorellaMVC.DataAccessLayer;
+using FirstFiorellaMVC.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Linq;
@@ -28,6 +29,34 @@ namespace FirstFiorellaMVC.Areas.AdminPanel.Controllers
             var blog = await _dbContext.Blogs.FindAsync(id);
 
             return View(blog);
+        }
+
+        [HttpGet]
+        public IActionResult Create()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Create(Blog blog)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View();
+            }
+
+            var isBlog = await _dbContext.Categories.AnyAsync(x => x.Name.ToLower() == blog.Name.ToLower());
+            if (isBlog)
+            {
+                ModelState.AddModelError("Name", "Already exist this blog");
+                return View();
+            }
+
+            await _dbContext.Blogs.AddAsync(blog);
+            await _dbContext.SaveChangesAsync();
+
+            return RedirectToAction(nameof(Index));
         }
     }
 }

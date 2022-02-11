@@ -10,10 +10,11 @@
             <div class="col-6"><img class="img-fluid" src="~/img/@blog.Image"><img /></div>
             <div class="col-6">
                 <h2 class="card-description text-danger">@blog.Name</h2>
-                <p class="text-lowercase">Context: @blog.Context</p>
-                <p class="text-lowercase">Post date: @blog.Datetime.ToShortDateString()</p>
+                <h6 class="text-lowercase">@Html.Raw(blog.Context)</h6>
+                <h4 class="card-description text-danger mt-5">Description</h4>
+                <p class="text-lowercase">@blog.Description</p>
+                <h6 class="text-lowercase">Date: @blog.Datetime.ToShortDateString()</h6>
             </div>
-
         </div>
     </div>
 </div>

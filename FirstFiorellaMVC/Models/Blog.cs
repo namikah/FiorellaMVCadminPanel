@@ -18,5 +18,8 @@ namespace FirstFiorellaMVC.Models
 
         [Required(ErrorMessage = "Date Cannot be empty"), MaxLength(50)]
         public DateTime Datetime { get; set; }
+
+        [StringLength(maximumLength:1000)]
+        public string Description { get; set; }
     }
 }
