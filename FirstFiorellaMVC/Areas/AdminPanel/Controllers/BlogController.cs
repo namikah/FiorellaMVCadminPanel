@@ -26,12 +26,16 @@ namespace FirstFiorellaMVC.Areas.AdminPanel.Controllers
 
         public async Task<ActionResult> Detail(int? id)
         {
+            if (id == null)
+                return BadRequest();
+
             var blog = await _dbContext.Blogs.FindAsync(id);
+            if (blog == null)
+                return NotFound();
 
             return View(blog);
         }
 
-        [HttpGet]
         public IActionResult Create()
         {
             return View();

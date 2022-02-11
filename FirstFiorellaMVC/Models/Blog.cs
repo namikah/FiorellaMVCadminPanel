@@ -13,10 +13,9 @@ namespace FirstFiorellaMVC.Models
         [Required(ErrorMessage = "Context Cannot be empty"), MaxLength(150)]
         public string Context { get; set; }
 
-        [MaxLength()]
+        [Required(ErrorMessage = "Image Cannot be empty"), MaxLength(50)]
         public string Image { get; set; }
 
-        [Required(ErrorMessage = "Date Cannot be empty"), MaxLength(50)]
         public DateTime Datetime { get; set; }
 
         [StringLength(maximumLength:1000)]
