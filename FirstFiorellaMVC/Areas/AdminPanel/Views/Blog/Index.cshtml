@@ -1,0 +1,35 @@
+﻿@{
+    ViewData["title"] = "blog";
+    Layout = "~/areas/adminpanel/views/shared/_adminlayout.cshtml";
+    List<Blog> blogList = Model;
+}
+
+<div class="container">
+    <div class="row">
+        <div class="table-responsive pt-3">
+            <table class="table table-bordered">
+                <thead>
+                    <tr class="table-primary">
+                        @*<th>#</th>*@
+                        <th>Image</th>
+                        <th>Name</th>
+                        <th>Context</th>
+                        <th>Date</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in blogList)
+                    {
+                        <tr class="table-info">
+                            @*<td>@item.Id</td>*@
+                            <td><img class="img-fluid" src="~/img/@item.Image" /></td>
+                            <td><a style="text-decoration:none" asp-controller="Blog" asp-action="Detail" asp-route-id="@item.Id">@item.Name</a></td>
+                            <td>@item.Context</td>
+                            <td>@item.Datetime.ToShortDateString()</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
