@@ -200,7 +200,7 @@
                   </div>
             </nav>
             <!-- partial -->
-            <div class="container-fluid page-body-wrapper">
+            <div class="container-fluid page-body-wrapper" style="padding-left:0;">
                   <!-- partial:partials/_settings-panel.html -->
                   <div class="theme-setting-wrapper">
                         <div id="settings-trigger"><i class="ti-settings"></i></div>
@@ -480,7 +480,9 @@
                               </li>
                         </ul>
                   </nav>
-                @RenderBody()
+                 <body style="background-color:#27367f;">
+                    @RenderBody()
+                  </body>
            </div>
             <!-- page-body-wrapper ends -->
       </div>
