@@ -21,6 +21,7 @@ namespace FirstFiorellaMVC.Areas.AdminPanel.Controllers
         public async Task<ActionResult> Index(int page = 1)
         {
             ViewBag.BlogCounts = await _dbContext.Blogs.CountAsync();
+            ViewBag.CurrentPage = page;
 
             var blogs = await _dbContext.Blogs.Skip((page - 1) * 4).Take(4).ToListAsync();
 
