@@ -1,0 +1,44 @@
+﻿
+@{
+    ViewData["Title"] = "Basket";
+    List<BasketViewModel> baskets = Model;
+    double total = 0;
+    foreach (var item in baskets)
+    {
+        total += item.Price * item.Count;
+    }
+}
+
+ <div class="container">
+    <div class="row justify-content-center mt-5 mb-5">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th class="img-fluid" scope="col">Image</th>
+                    <th scope="col">Products</th>
+                    <th scope="col">Price</th>
+                    <th scope="col">Counts</th>
+                    <th scope="col">Weight</th>
+                    <th scope="col">Total</th>
+                    <th scope="col">- / +</th>
+                    <th scope="col"></th>
+                </tr>
+            </thead>
+            <tbody id="basket-list">
+               <partial name="_BasketPartial"/>
+            </tbody>
+            <tfoot>
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td><strong>TOTAL:</strong></td>
+                    <td><strong id="basket-total-price-bottom">$@total</strong></td>
+                </tr>
+            </tfoot>
+        </table>
+    </div>
+</div>
+
+ 
