@@ -11,7 +11,7 @@
             <table class="table table-bordered" style="background-color:#f4f5f7">
                 <thead>
                     <tr class="table-primary text-center">
-                        <th style="background-color: #f4f5f7; border:1px solid #007bff;">#</th>
+                        @*<th style="background-color: #f4f5f7; border:1px solid #007bff;">#</th>*@
                         <th style="background-color: #f4f5f7; border:1px solid #007bff;">Image</th>
                         <th style=" background-color: #f4f5f7; border:1px solid #007bff;">Name</th>
                         <th style=" background-color: #f4f5f7; border:1px solid #007bff;">Context</th>
@@ -23,7 +23,7 @@
                     @foreach (var item in blogList)
                     {
                         <tr class="table-info text-center">
-                            <td style="width:50px; background-color: #f4f5f7;border:1px solid #007bff;">@item.Id</td>
+                            @*<td style="width:50px; background-color: #f4f5f7;border:1px solid #007bff;">@item.Id</td>*@
                             <td style="width:100px;padding:0;background-color: #f4f5f7;border:1px solid #007bff;"><a asp-controller="Blog" asp-action="Detail" asp-route-id="@item.Id"><img class="img-fluid" src="~/img/@item.Image" style="width: 100%;height: 100%;border-radius: 0; padding:5px;" /></a></td>
                             <td style="width:200px;background-color: #f4f5f7;border:1px solid #007bff;"><a style="text-decoration:none" asp-controller="Blog" asp-action="Detail" asp-route-id="@item.Id">@item.Name</a></td>
                             <td style="min-width:200px;background-color: #f4f5f7;border:1px solid #007bff;">@item.Context</td>
@@ -31,7 +31,7 @@
                             <td style="width:200px; color:whitesmoke; background-color: #f4f5f7;border:1px solid #007bff;">
                                 <a asp-controller="Blog" asp-action="Detail" asp-route-id="@item.Id" class="btn btn-primary btn-rounded btn-fw">Detail</a>
                                 <a class="btn btn-success btn-rounded btn-fw" asp-action="Edit" asp-route-id="@item.Id">Edit</a>
-                                <a class="btn btn-danger btn-rounded btn-fw">Delete</a>
+                                <a class="btn btn-danger btn-rounded btn-fw" id="delete-item" asp-controller="Blog" asp-action="Delete" asp-route-id="@item.Id">Delete</a>
                             </td>
                         </tr>
                     }
@@ -78,3 +78,47 @@
         </nav>
     </div>
 </div>
+
+@section Scripts{
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+<script>
+    $(document).ready(function () {
+        $("#delete-item").click(function (e) {
+            e.preventDefault();
+            Swal.fire({
+                title: 'Are you sure?',
+                text: "You won't be able to revert this!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Yes, delete it!'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    let link = $(this).attr("href")
+                    fetch(link).then(response => response.json()).then(data => {
+                        if (data.status == 200) {
+                            Swal.fire(
+                                'Deleted!',
+                                'Your file has been deleted.',
+                                'success'
+                            )
+                            setTimeout(() =>
+                            { location.reload(true) }, 2000);
+                        }
+                        else {
+                            Swal.fire(
+                                'Error!',
+                                'Your file not Found.',
+                                'Failed'
+                            )
+                        }
+                    })
+
+                }
+            })
+        })
+    })
+</script>
+}

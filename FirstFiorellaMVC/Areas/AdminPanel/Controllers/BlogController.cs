@@ -23,7 +23,7 @@ namespace FirstFiorellaMVC.Areas.AdminPanel.Controllers
             ViewBag.BlogCounts = await _dbContext.Blogs.CountAsync();
             ViewBag.CurrentPage = page;
 
-            var blogs = await _dbContext.Blogs.Skip((page - 1) * 4).Take(4).ToListAsync();
+            var blogs = await _dbContext.Blogs.OrderByDescending(x => x.Id).Skip((page - 1) * 4).Take(4).ToListAsync();
 
             return View(blogs);
         }
@@ -107,6 +107,18 @@ namespace FirstFiorellaMVC.Areas.AdminPanel.Controllers
             await _dbContext.SaveChangesAsync();
 
             return RedirectToAction(nameof(Index));
+        }
+
+       
+        public async Task<IActionResult> Delete(int id)
+        {
+            var blog = await _dbContext.Blogs.FindAsync(id);
+            if (blog == null)
+                return Json(new { status = 404 });
+
+            _dbContext.Blogs.Remove(blog);
+            _dbContext.SaveChanges();
+            return Json(new { status = 200 });
         }
     }
 }
