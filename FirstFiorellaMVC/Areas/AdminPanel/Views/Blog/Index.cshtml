@@ -24,7 +24,7 @@
                     {
                         <tr class="table-info text-center">
                             @*<td style="width:50px; background-color: #f4f5f7;border:1px solid #007bff;">@item.Id</td>*@
-                            <td style="width:100px;padding:0;background-color: #f4f5f7;border:1px solid #007bff;"><a asp-controller="Blog" asp-action="Detail" asp-route-id="@item.Id"><img class="img-fluid" src="~/img/@item.Image" style="width: 100%;height: 100%;border-radius: 0; padding:5px;" /></a></td>
+                            <td style="width:100px; padding:0;background-color: #f4f5f7;border:1px solid #007bff;"><a asp-controller="Blog" asp-action="Detail" asp-route-id="@item.Id"><img class="img-fluid" src="~/img/@item.Image" style="width: 100%;height: 100%;border-radius: 0; padding:5px;" /></a></td>
                             <td style="width:200px;background-color: #f4f5f7;border:1px solid #007bff;"><a style="text-decoration:none" asp-controller="Blog" asp-action="Detail" asp-route-id="@item.Id">@item.Name</a></td>
                             <td style="min-width:200px;background-color: #f4f5f7;border:1px solid #007bff;">@item.Context</td>
                             <td style="width:100px;background-color: #f4f5f7;border:1px solid #007bff;">@item.Datetime.ToShortDateString()</td>
