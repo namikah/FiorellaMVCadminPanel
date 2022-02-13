@@ -1,15 +1,19 @@
 $(document).ready(function () {
 
+    function refreshBasket(res) {
+        $("#basket-list").empty();
+        $("#basket-list").append(res);
+        $("#basket-total-price").text("CART (" + $("#basket-total-price-bottom").text() + ")");
+        $("#basket-count").text($("#basket-list tr").length - 1);
+    }
+
     $(document).on('click', '#increment-basket-item', function () {
         $.ajax({
             type: "POST",
             url: "/Home/IncDecBasket",
             data: { id: $(this).attr('data-id'), operation: 'increment' },
             success: function (res) {
-                $("#basket-list").empty();
-                $("#basket-list").append(res);
-                $("#basket-total-price").text("CART (" + $("#basket-total-price-bottom").text() + ")");
-                $("#basket-count").text($("#basket-list tr").length - 1);
+                refreshBasket(res);
             }
         });
     })
@@ -20,10 +24,7 @@ $(document).ready(function () {
             url: "/Home/IncDecBasket",
             data: { id: $(this).attr('data-id'), operation: 'decrement' },
             success: function (res) {
-                $("#basket-list").empty();
-                $("#basket-list").append(res);
-                $("#basket-total-price").text("CART (" + $("#basket-total-price-bottom").text() + ")");
-                $("#basket-count").text($("#basket-list tr").length - 1);
+                refreshBasket(res);
             }
         });
     })
@@ -33,10 +34,7 @@ $(document).ready(function () {
             type: "DELETE",
             url: "/Home/RemoveBasket?id=" + $(this).attr('data-id'),
             success: function (res) {
-                $("#basket-list").empty();
-                $("#basket-list").append(res);
-                $("#basket-total-price").text("CART (" + $("#basket-total-price-bottom").text() + ")");
-                $("#basket-count").text($("#basket-list tr").length - 1);
+                refreshBasket(res);
             }
         });
     })
