@@ -14,12 +14,15 @@ namespace FirstFiorellaMVC.Controllers
 {
     public class HomeController : Controller
     {
+
         private readonly AppDbContext _appDbContext;
+
 
         public HomeController(AppDbContext appDbContext)
         {
             _appDbContext = appDbContext;
         }
+
 
         public IActionResult Index()
         {
@@ -45,6 +48,7 @@ namespace FirstFiorellaMVC.Controllers
             });
         }
 
+
         public async Task<IActionResult> Search(string searchedProduct)
         {
 
@@ -59,6 +63,7 @@ namespace FirstFiorellaMVC.Controllers
 
             return PartialView("_SearchProductPartial", products);
         }
+
 
         public async Task<IActionResult> Basket()
         {
@@ -113,6 +118,7 @@ namespace FirstFiorellaMVC.Controllers
 
             return View(newBaskets);
         }
+
 
         [HttpPost]
         public async Task<IActionResult> Basket(int? id)
@@ -169,9 +175,9 @@ namespace FirstFiorellaMVC.Controllers
 
             Response.Cookies.Append("Basket", Basket, new CookieOptions { Expires = System.DateTimeOffset.Now.AddDays(1)});
 
-            //return PartialView("_BasketPartial", basketViewModels);
             return Json(basketViewModels);
         }
+
 
         [HttpDelete]
         public async Task<IActionResult> RemoveBasket(int? id)
@@ -212,19 +218,6 @@ namespace FirstFiorellaMVC.Controllers
             return PartialView("_BasketPartial", basketViewModels);
         }
 
-        public IActionResult RefreshBasket()
-        {
-            var CookieBasket = Request.Cookies["Basket"];
-
-            if (string.IsNullOrEmpty(CookieBasket))
-            {
-                return Json(new List<BasketViewModel>());
-            }
-            else
-            {
-                return Json(JsonConvert.DeserializeObject<List<BasketViewModel>>(CookieBasket));
-            }
-        }
 
         public async Task<IActionResult> IncDecBasket(int? id, string operation)
         {

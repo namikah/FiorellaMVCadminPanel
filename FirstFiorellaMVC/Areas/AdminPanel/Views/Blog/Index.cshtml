@@ -31,7 +31,7 @@
                             <td style="width:200px; color:whitesmoke; background-color: #f4f5f7;border:1px solid #007bff;">
                                 <a asp-controller="Blog" asp-action="Detail" asp-route-id="@item.Id" class="btn btn-primary btn-rounded btn-fw">Detail</a>
                                 <a class="btn btn-success btn-rounded btn-fw" asp-action="Edit" asp-route-id="@item.Id">Edit</a>
-                                <a class="btn btn-danger btn-rounded btn-fw" id="delete-item" asp-controller="Blog" asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                                <a class="btn btn-danger btn-rounded btn-fw" id="delete-blog-item" asp-area="AdminPanel" asp-controller="Blog" asp-action="Delete" asp-route-id="@item.Id">Delete</a>
                             </td>
                         </tr>
                     }
@@ -59,7 +59,7 @@
 
                     for (var i = 1; i <= maxPageCounts; i++)
                     {
-                        <li class="page-@i" style="background-color:#e9ecef;"><a class="page-link" asp-action="Index" asp-route-page="@i" style="@((currentPage == i)? "background-color:blue; color:white;" : "")">@i</a></li>
+                        <li class="page-@i" style="background-color:#e9ecef;"><a class="page-link" asp-action="Index" asp-route-page="@i" style="@((currentPage == i)? "background-color:blue; color:white; pointer-events:none;" : "")">@i</a></li>
                     }
                 }
                 <li class="page-item" style="background-color: white;">
@@ -84,7 +84,7 @@
 
 <script>
     $(document).ready(function () {
-        $("#delete-item").click(function (e) {
+        $("#delete-blog-item").click(function (e) {
             e.preventDefault();
             Swal.fire({
                 title: 'Are you sure?',
