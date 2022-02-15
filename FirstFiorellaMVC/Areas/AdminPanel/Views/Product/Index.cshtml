@@ -1,14 +1,14 @@
 ﻿@{
-    ViewData["Title"] = "Blog";
-    List<Blog> blogList = Model;
-    var maxPageCounts = Math.Ceiling((decimal)ViewBag.BlogCounts / 4);
+    ViewData["Title"] = "Product";
+    List<Product> productList = Model;
+    var maxPageCounts = Math.Ceiling((decimal)ViewBag.ProductCounts / 4);
     var currentPage = ViewBag.CurrentPage;
 }
 
 <div class="container">
     <div class="row" style="min-height:350px;">
         <div class="text-right pt-3">
-            <a  asp-controller="Blog" asp-action="Create" class="btn btn-danger btn-icon-text"><i class="ti-upload btn-icon-prepend"></i>Add Blog</a>
+            <a  asp-controller="Product" asp-action="Create" class="btn btn-danger btn-icon-text"><i class="ti-upload btn-icon-prepend"></i>Add Product</a>
         </div>
         <div class="table-responsive pt-3">
             <table class="table table-bordered" style="background-color:#f4f5f7">
@@ -17,24 +17,26 @@
                         @*<th style="background-color: #f4f5f7; border:1px solid #007bff;">#</th>*@
                         <th style="background-color: #f4f5f7; border:1px solid #007bff;">Image</th>
                         <th style=" background-color: #f4f5f7; border:1px solid #007bff;">Name</th>
-                        <th style=" background-color: #f4f5f7; border:1px solid #007bff;">Context</th>
-                        <th style=" background-color: #f4f5f7; border:1px solid #007bff;">Date</th>
+                        <th style=" background-color: #f4f5f7; border:1px solid #007bff;">Dimension</th>
+                        <th style=" background-color: #f4f5f7; border:1px solid #007bff;">Price</th>
                         <th style="background-color: #f4f5f7; border:1px solid #007bff;">Operation</th>
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach (var item in blogList)
+                    @foreach (var item in productList)
                     {
+                        var image = item.Images.Find(x => x.ProductId == item.Id && x.IsMain == true).Name;
+                        
                         <tr class="table-info text-center">
                             @*<td style="width:50px; background-color: #f4f5f7;border:1px solid #007bff;">@item.Id</td>*@
-                            <td style="width:100px; padding:0;background-color: #f4f5f7;border:1px solid #007bff;"><a asp-controller="Blog" asp-action="Detail" asp-route-id="@item.Id"><img class="img-fluid" src="~/img/@item.Image" style="width: 100%;height: 100%;border-radius: 0; padding:5px;" /></a></td>
-                            <td style="width:200px;background-color: #f4f5f7;border:1px solid #007bff;"><a style="text-decoration:none" asp-controller="Blog" asp-action="Detail" asp-route-id="@item.Id">@item.Name</a></td>
-                            <td style="min-width:200px;background-color: #f4f5f7;border:1px solid #007bff;">@item.Context</td>
-                            <td style="width:100px;background-color: #f4f5f7;border:1px solid #007bff;">@item.Datetime.ToShortDateString()</td>
+                            <td style="width:100px; padding:0;background-color: #f4f5f7;border:1px solid #007bff;"><a asp-controller="Product" asp-action="Detail" asp-route-id="@item.Id"><img class="img-fluid" src="~/img/@image" style="width: 100%;height: 100%;border-radius: 0; padding:5px;" /></a></td>
+                            <td style="width:200px;background-color: #f4f5f7;border:1px solid #007bff;"><a style="text-decoration:none" asp-controller="Product" asp-action="Detail" asp-route-id="@item.Id">@item.Name</a></td>
+                            <td style="min-width:200px;background-color: #f4f5f7;border:1px solid #007bff;">@item.Dimension</td>
+                            <td style="width:100px;background-color: #f4f5f7;border:1px solid #007bff;">$@item.Price</td>
                             <td style="width:200px; color:whitesmoke; background-color: #f4f5f7;border:1px solid #007bff;">
-                                <a asp-controller="Blog" asp-action="Detail" asp-route-id="@item.Id" class="btn btn-primary btn-rounded btn-fw">Detail</a>
+                                <a asp-controller="Product" asp-action="Detail" asp-route-id="@item.Id" class="btn btn-primary btn-rounded btn-fw">Detail</a>
                                 <a class="btn btn-success btn-rounded btn-fw" asp-action="Edit" asp-route-id="@item.Id">Edit</a>
-                                <a class="btn btn-danger btn-rounded btn-fw" id="delete-blog-item" asp-area="AdminPanel" asp-controller="Blog" asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                                <a class="btn btn-danger btn-rounded btn-fw" id="delete-product-item" asp-area="AdminPanel" asp-controller="Product" asp-action="Delete" asp-route-id="@item.Id">Delete</a>
                             </td>
                         </tr>
                     }
@@ -85,7 +87,7 @@
 
 <script>
     $(document).ready(function () {
-        $("#delete-blog-item").click(function (e) {
+        $("#delete-product-item").click(function (e) {
             e.preventDefault();
             Swal.fire({
                 title: 'Are you sure?',
