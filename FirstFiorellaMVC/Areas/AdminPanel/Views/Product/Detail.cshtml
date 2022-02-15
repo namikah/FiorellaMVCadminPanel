@@ -24,7 +24,7 @@
         @*One Big images*@
         <div class="col-5">
             <div  style="border: 1px solid black; cursor:pointer;">
-                 <img src="~/img/@Model.Images.Find(x=>x.IsMain == true).Name" class="img-fluid"><img/>
+                 <img src="~/img/@Model.Images.Find(x=>x.IsMain == true)?.Name" class="img-fluid"><img/>
             </div>
         </div>
         @*Product Details*@

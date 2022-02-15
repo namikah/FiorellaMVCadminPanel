@@ -1,13 +1,9 @@
 ﻿@model List<Campaign>
 
 
-<div class="form-group">
-    <label for="exampleFormControlSelect3">Campaign</label>
-    <select class="form-control form-control-sm" id="exampleFormControlSelect3">
-        <option></option>
+
         @foreach (var item in Model)
         {
-             <option  data-id="@item.Id">@item.Id - @item.Name</option>
+             <option value="@item.Id">@item.Name</option>
         }
-    </select>
-</div>
+
