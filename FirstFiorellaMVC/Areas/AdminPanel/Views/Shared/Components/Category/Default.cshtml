@@ -1,0 +1,13 @@
+﻿@model List<Category>
+
+
+<div class="form-group">
+    <label for="exampleFormControlSelect3">Category</label>
+    <select class="form-control form-control-sm" id="exampleFormControlSelect3">
+        <option></option>
+        @foreach (var item in Model)
+        {
+            <option>@item.Name</option>
+        }
+    </select>
+</div>

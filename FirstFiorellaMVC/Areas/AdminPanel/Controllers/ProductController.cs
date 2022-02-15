@@ -37,5 +37,10 @@ namespace FirstFiorellaMVC.Areas.AdminPanel.Controllers
 
             return View(product);
         }
+
+        public IActionResult Create()
+        {
+            return View();
+        }
     }
 }
