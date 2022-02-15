@@ -60,6 +60,13 @@ namespace FirstFiorellaMVC.Areas.AdminPanel.Controllers
                 return View();
             }
 
+            var isCategory = await _dbContext.Categories.AnyAsync(x => x.Id == product.CategoryId);
+            if (!isCategory)
+            {
+                ModelState.AddModelError("CategoryId", "Not found category");
+                return View();
+            }
+
             await _dbContext.Products.AddAsync(product);
             await _dbContext.SaveChangesAsync();
 

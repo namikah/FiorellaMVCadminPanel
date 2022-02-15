@@ -1,4 +1,6 @@
 ﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace FirstFiorellaMVC.Models
 {
@@ -6,8 +8,10 @@ namespace FirstFiorellaMVC.Models
     {
         public int Id { get; set; }
 
+        [Required]
         public string Name { get; set; }
 
+        [Required]
         public double Price { get; set; }
 
         public string Dimension { get; set; }
@@ -18,6 +22,7 @@ namespace FirstFiorellaMVC.Models
 
         public  List<ProductImage> Images{ get; set; }
 
+        [Required, ForeignKey("Category")]
         public int CategoryId { get; set; }
 
         public Category Category { get; set; }

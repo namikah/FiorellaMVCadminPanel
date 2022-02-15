@@ -31,19 +31,23 @@
                             <input class="form-control" id="exampleInputUsername1" placeholder="Price" asp-for="Price">
                             <span asp-validation-for="Price" class="text-danger"></span>
                         </div>
-                        <div class="form-group"> @*category dropdown list*@
-                            <label for="exampleFormControlSelect3" asp-validation-for="CategoryId">Category</label> 
+                        <div class="form-group">
+                            @*category dropdown list*@
+                            <label for="exampleFormControlSelect3">Category</label>
                             <select class="form-control form-control-sm selected-category-name" id="exampleFormControlSelect3" asp-for="CategoryId">
                                 <option></option>
                                 @await Component.InvokeAsync("Category")
                             </select>
+                            <span asp-validation-for="CategoryId" class="text-danger"></span>
                         </div>
-                        <div class="form-group"> @*Campaign dropdown list*@
-                            <label for="exampleFormControlSelect3" asp-validation-for="CampaignId">Campaign</label> 
+                        <div class="form-group">
+                            @*Campaign dropdown list*@
+                            <label for="exampleFormControlSelect3">Campaign</label>
                             <select class="form-control form-control-sm selected-campaign-name" id="exampleFormControlSelect3" asp-for="CampaignId">
                                 <option></option>
                                 @await Component.InvokeAsync("Campaign")
                             </select>
+                            <span asp-validation-for="CampaignId" class="text-danger"></span>
                         </div>
                         @* <input type="hidden" class="form-control" id="exampleInputUsername1" placeholder="" asp-for="CategoryId">
                             <span asp-validation-for="CategoryId" class="text-danger"></span>*@
