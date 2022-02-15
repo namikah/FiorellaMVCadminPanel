@@ -110,12 +110,6 @@ namespace FirstFiorellaMVC.Areas.AdminPanel.Controllers
                 return View(isExistProduct);
             }
 
-            var isExistProductName = await _dbContext.Products.AnyAsync(x => x.Name == product.Name);
-            if (isExistProductName)
-            {
-                ModelState.AddModelError("Name", "Already exist this blog");
-                return View(isExistProductName);
-            }
             isExistProduct.Name = product.Name;
             isExistProduct.Dimension = product.Dimension;
             isExistProduct.Weight = product.Weight;
@@ -128,6 +122,18 @@ namespace FirstFiorellaMVC.Areas.AdminPanel.Controllers
             await _dbContext.SaveChangesAsync();
 
             return RedirectToAction(nameof(Index));
+        }
+
+        public async Task<JsonResult> Delete(int id)
+        {
+            var product = await _dbContext.Products.FindAsync(id);
+            if (product == null)
+                return Json(new { status = false });
+
+            _dbContext.Products.Remove(product);
+            _dbContext.SaveChanges();
+
+            return Json(new { status = true });
         }
     }
 }

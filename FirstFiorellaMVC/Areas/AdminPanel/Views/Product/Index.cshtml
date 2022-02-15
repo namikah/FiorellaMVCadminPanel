@@ -8,7 +8,7 @@
 <div class="container">
     <div class="row" style="min-height:350px;">
         <div class="text-right pt-3">
-            <a  asp-controller="Product" asp-action="Create" class="btn btn-danger btn-icon-text"><i class="ti-upload btn-icon-prepend"></i>Add Product</a>
+            <a asp-controller="Product" asp-action="Create" class="btn btn-danger btn-icon-text"><i class="ti-upload btn-icon-prepend"></i>Add Product</a>
         </div>
         <div class="table-responsive pt-3">
             <table class="table table-bordered" style="background-color:#f4f5f7">
@@ -26,7 +26,7 @@
                     @foreach (var item in productList)
                     {
                         var image = item.Images.Find(x => x.ProductId == item.Id && x.IsMain == true)?.Name;
-                        
+
                         <tr class="table-info text-center">
                             @*<td style="width:50px; background-color: #f4f5f7;border:1px solid #007bff;">@item.Id</td>*@
                             <td style="width:100px; padding:0;background-color: #f4f5f7;border:1px solid #007bff;"><a asp-controller="Product" asp-action="Detail" asp-route-id="@item.Id"><img class="img-fluid" src="~/img/@image" style="width: 100%;height: 100%;border-radius: 0; padding:5px;" /></a></td>
@@ -36,7 +36,7 @@
                             <td style="width:200px; color:whitesmoke; background-color: #f4f5f7;border:1px solid #007bff;">
                                 <a asp-controller="Product" asp-action="Detail" asp-route-id="@item.Id" class="btn btn-primary btn-rounded btn-fw">Detail</a>
                                 <a class="btn btn-success btn-rounded btn-fw" asp-action="Edit" asp-route-id="@item.Id">Edit</a>
-                                <a class="btn btn-danger btn-rounded btn-fw" id="delete-product-item" asp-area="AdminPanel" asp-controller="Product" asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                                <a class="btn btn-danger btn-rounded btn-fw" id="delete-product-item" asp-action="Delete" asp-route-id="@item.Id">Delete</a>
                             </td>
                         </tr>
                     }
@@ -87,7 +87,7 @@
 
 <script>
     $(document).ready(function () {
-        $("#delete-product-item").click(function (e) {
+        $(".btn-danger#delete-product-item").click(function (e) {
             e.preventDefault();
             Swal.fire({
                 title: 'Are you sure?',
@@ -100,13 +100,15 @@
             }).then((result) => {
                 if (result.isConfirmed) {
                     let link = $(this).attr("href")
-                    fetch(link).then(response => response.json()).then(data => {
-                        if (data.status == 200) {
+                    fetch(link).then(response => response.json()).then((data) => {
+                        if (data.status == true) {
                             Swal.fire(
                                 'Deleted!',
                                 'Your file has been deleted.',
                                 'success'
                             )
+                             setTimeout(() =>
+                                { location.reload(true) }, 2000);
                         }
                         else {
                             Swal.fire(
