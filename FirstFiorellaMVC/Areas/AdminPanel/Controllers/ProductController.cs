@@ -106,7 +106,14 @@ namespace FirstFiorellaMVC.Areas.AdminPanel.Controllers
             var isExistProduct = await _dbContext.Products.FindAsync(product.Id);
             if (isExistProduct == null)
             {
-                ModelState.AddModelError("Name", "Note found");
+                ModelState.AddModelError("Name", "Not found");
+                return View(isExistProduct);
+            }
+
+            var isExistProductName = await _dbContext.Products.AnyAsync(x => x.Name == product.Name);
+            if (isExistProductName)
+            {
+                ModelState.AddModelError("Name", "Product name already exist");
                 return View(isExistProduct);
             }
 

@@ -88,7 +88,7 @@ namespace FirstFiorellaMVC.Areas.AdminPanel.Controllers
             var isExistBlog = await _dbContext.Blogs.FindAsync(blog.Id);
             if (isExistBlog == null)
             {
-                ModelState.AddModelError("Name", "Note found");
+                ModelState.AddModelError("Name", "Not found");
                 return View(isExistBlog);
             }
 
