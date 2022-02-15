@@ -15,8 +15,9 @@ namespace FirstFiorellaMVC.ViewComponents
             _dbContext = dbContext;
         }
 
-        public async Task<IViewComponentResult> InvokeAsync()
+        public async Task<IViewComponentResult> InvokeAsync(int? id)
         {
+            ViewBag.SelectedCampaign = id;
             var campaigns = await _dbContext.Campaigns.ToListAsync();
 
             return View(campaigns);

@@ -3,7 +3,14 @@
 
 
         @foreach (var item in Model)
-        {
-             <option value="@item.Id">@item.Name</option>
-        }
+{
+    if (item.Id == ViewBag.SelectedCampaign)
+    {
+        <option value="@item.Id" selected>@item.Name</option>
+    }
+    else
+    {
+        <option value="@item.Id">@item.Name</option>
+    }
+}
 

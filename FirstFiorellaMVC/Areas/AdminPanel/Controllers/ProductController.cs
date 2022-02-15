@@ -67,7 +67,64 @@ namespace FirstFiorellaMVC.Areas.AdminPanel.Controllers
                 return View();
             }
 
+            
+
             await _dbContext.Products.AddAsync(product);
+            await _dbContext.SaveChangesAsync();
+
+            #region Add Image for product to Images list (muveqqeti)
+            await _dbContext.ProductImages.AddAsync(new ProductImage()
+            {
+                Name = "shop-14-img.jpg",
+                ProductId = product.Id,
+                IsMain = true
+            });
+            await _dbContext.SaveChangesAsync();
+            #endregion
+
+            return RedirectToAction(nameof(Index));
+        }
+
+        public async Task<IActionResult> Edit(int id)
+        {
+            var product = await _dbContext.Products.Include(x=>x.Category).FirstOrDefaultAsync(x=>x.Id == id);
+            if (product == null)
+                return NotFound();
+
+            return View(product);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Edit(Product product)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View();
+            }
+
+            var isExistProduct = await _dbContext.Products.FindAsync(product.Id);
+            if (isExistProduct == null)
+            {
+                ModelState.AddModelError("Name", "Note found");
+                return View(isExistProduct);
+            }
+
+            var isExistProductName = await _dbContext.Products.AnyAsync(x => x.Name == product.Name);
+            if (isExistProductName)
+            {
+                ModelState.AddModelError("Name", "Already exist this blog");
+                return View(isExistProductName);
+            }
+            isExistProduct.Name = product.Name;
+            isExistProduct.Dimension = product.Dimension;
+            isExistProduct.Weight = product.Weight;
+            isExistProduct.SKUCode = product.SKUCode;
+            isExistProduct.Price = product.Price;
+            isExistProduct.CategoryId = product.CategoryId;
+            isExistProduct.CampaignId = product.CampaignId;
+
+
             await _dbContext.SaveChangesAsync();
 
             return RedirectToAction(nameof(Index));
