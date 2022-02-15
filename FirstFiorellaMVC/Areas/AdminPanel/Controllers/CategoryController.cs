@@ -83,7 +83,7 @@ namespace FirstFiorellaMVC.Areas.AdminPanel.Controllers
             var isExistCategoryName = await _dbContext.Categories.AnyAsync(x => x.Name == category.Name);
             if (isExistCategoryName)
             {
-                ModelState.AddModelError("Name", "Category already exist");
+                ModelState.AddModelError("Name", "Category name already exist");
                 return View(isExistCategory);
             }
 

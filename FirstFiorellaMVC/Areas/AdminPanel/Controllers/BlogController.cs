@@ -92,10 +92,10 @@ namespace FirstFiorellaMVC.Areas.AdminPanel.Controllers
                 return View(isExistBlog);
             }
 
-            var isExistBlogName = await _dbContext.Blogs.AnyAsync(x => x.Name == blog.Name);
+            var isExistBlogName = await _dbContext.Blogs.Where(x=>x.Id != blog.Id).AnyAsync(x => x.Name == blog.Name);
             if (isExistBlogName)
             {
-                ModelState.AddModelError("Name", "Already exist this blog");
+                ModelState.AddModelError("Name", "Blog name already exist");
                 return View(isExistBlog);
             }
             isExistBlog.Name = blog.Name;
