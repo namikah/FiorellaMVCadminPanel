@@ -32,7 +32,11 @@
                             <span asp-validation-for="Price" class="text-danger"></span>
                         </div>
                         @await Component.InvokeAsync("Category")
+                        <input type="hidden" class="form-control" id="exampleInputUsername1" placeholder="" asp-for="CategoryId">
+                        <span asp-validation-for="CategoryId" class="text-danger"></span>
                         @await Component.InvokeAsync("Campaign")
+                        <input type="hidden" class="form-control" id="exampleInputUsername1" placeholder="" asp-for="CampaignId">
+                        <span asp-validation-for="CampaignId" class="text-danger"></span>
 
                         <button type="submit" class="btn btn-primary me-2">Submit</button>
                         <a class="btn btn-light" asp-action="Index">Cancel</a>

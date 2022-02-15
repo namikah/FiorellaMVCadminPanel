@@ -7,7 +7,7 @@
         <option></option>
         @foreach (var item in Model)
         {
-            <option>@item.Name</option>
+             <option  data-id="@item.Id">@item.Id - @item.Name</option>
         }
     </select>
 </div>

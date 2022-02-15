@@ -1,4 +1,5 @@
 ﻿using FirstFiorellaMVC.DataAccessLayer;
+using FirstFiorellaMVC.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Linq;
@@ -41,6 +42,28 @@ namespace FirstFiorellaMVC.Areas.AdminPanel.Controllers
         public IActionResult Create()
         {
             return View();
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Create(Product product)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View();
+            }
+
+            var isProduct = await _dbContext.Products.AnyAsync(x => x.Name.ToLower() == product.Name.ToLower());
+            if (isProduct)
+            {
+                ModelState.AddModelError("Name", "Already exist");
+                return View();
+            }
+
+            await _dbContext.Products.AddAsync(product);
+            await _dbContext.SaveChangesAsync();
+
+            return RedirectToAction(nameof(Index));
         }
     }
 }
