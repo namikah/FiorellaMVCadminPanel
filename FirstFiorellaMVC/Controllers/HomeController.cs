@@ -68,14 +68,15 @@ namespace FirstFiorellaMVC.Controllers
         public async Task<IActionResult> Basket()
         {
             var basket = Request.Cookies["Basket"];
+            var newBaskets = new List<BasketViewModel>();
 
             if (string.IsNullOrEmpty(basket))
             {
-                return Content("Empthy");
+                return View(newBaskets);
             }
 
             var basketViewModels = JsonConvert.DeserializeObject<List<BasketViewModel>>(basket);
-            var newBaskets = new List<BasketViewModel>();
+
             foreach (var item in basketViewModels)
             {
                 var product = await _appDbContext.Products.FindAsync(item.Id);
@@ -106,15 +107,7 @@ namespace FirstFiorellaMVC.Controllers
             }
 
             basket = JsonConvert.SerializeObject(newBaskets);
-
             Response.Cookies.Append("Basket", basket, new CookieOptions { Expires = System.DateTimeOffset.Now.AddDays(1) });
-            double TotalPrice = 0;
-            foreach (var item in newBaskets)
-            {
-                TotalPrice += item.Price * item.Count;
-            }
-
-            ViewData["TotalPrice"] = TotalPrice;
 
             return View(newBaskets);
         }

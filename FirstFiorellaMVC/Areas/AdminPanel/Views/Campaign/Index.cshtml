@@ -29,7 +29,7 @@
                             <td style="width:400px;background-color: #f4f5f7;border:1px solid #007bff;"><a style="text-decoration:none">@item.Discount%</a></td>
                             <td style="width:50px; color:whitesmoke; background-color: #f4f5f7;border:1px solid #007bff;">
                                 <a class="btn btn-success btn-rounded btn-fw" asp-action="Edit" asp-route-id="@item.Id">Edit</a>
-                                <a class="btn btn-danger btn-rounded btn-fw" id="delete-campaign-item" asp-area="AdminPanel" asp-controller="campaign" asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                                <a class="btn btn-danger btn-rounded btn-fw" id="delete-campaign-item" asp-action="Delete" asp-route-id="@item.Id">Delete</a>
                             </td>
                         </tr>
                     }
@@ -75,7 +75,8 @@
     </div>
 </div>
 
-@section Scripts{
+@section Scripts
+{
 <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
 <script>

@@ -77,7 +77,7 @@ $(document).ready(function () {
 
     var skip = 8;
     $(window).scroll(function () {
-        var scroll = $(window).scrollTop();
+        var scroll = $(document).scrollTop();
         if (scroll > $("#productRow").height() - $('.product-item').height()) {
 
             $.ajax({

@@ -104,6 +104,7 @@ namespace FirstFiorellaMVC.Areas.AdminPanel.Controllers
 
             _dbContext.Campaigns.Remove(campaign);
             _dbContext.SaveChanges();
+
             return Json(new { status = 200 });
         }
     }
